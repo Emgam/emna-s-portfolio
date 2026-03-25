@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emna Gammoudi — Data Science Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg2: #f8fafc;
+    --bg3: #f1f5f9;
+    --text: #0f172a;
+    --text2: #334155;
+    --text3: #64748b;
+    --blue: #1e3a8a;
+    --blue-light: #3b82f6;
+    --blue-pale: #eff6ff;
+    --accent: #d97706;
+    --accent2: #b45309;
+    --border: #e2e8f0;
+    --card: #ffffff;
+    --card-border: #e2e8f0;
+    --shadow: rgba(30, 58, 138, 0.08);
+    --nav-bg: rgba(255, 255, 255, 0.85);
+  }
+  [data-theme="dark"] {
+    --bg: #0b1120;
+    --bg2: #0f172a;
+    --bg3: #1e293b;
+    --text: #f8fafc;
+    --text2: #cbd5e1;
+    --text3: #94a3b8;
+    --blue: #60a5fa;
+    --blue-light: #93c5fd;
+    --blue-pale: #1e3a8a;
+    --accent: #fbbf24;
+    --accent2: #f59e0b;
+    --border: #334155;
+    --card: #0f172a;
+    --card-border: #1e293b;
+    --shadow: rgba(0, 0, 0, 0.25);
+    --nav-bg: rgba(11, 17, 32, 0.90);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    transition: background 0.35s, color 0.35s;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(1.2rem, 5vw, 3.5rem);
+    height: 62px;
+    transition: background 0.35s, border-color 0.35s;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800; font-size: 1.15rem;
+    color: var(--blue);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+  .nav-links { display: flex; gap: 0.2rem; }
+  .nav-links a {
+    font-size: 0.82rem; font-weight: 500;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); background: var(--blue-pale); }
+  .nav-controls { display: flex; gap: 0.4rem; align-items: center; margin-left: 0.8rem; }
+  .ctrl-btn {
+    display: flex; align-items: center; gap: 0.35rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 0.75rem; font-weight: 600;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px; cursor: pointer;
+    transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .ctrl-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .ctrl-btn svg { width: 14px; height: 14px; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: clamp(6rem, 12vw, 10rem) clamp(1.2rem, 8vw, 7rem) 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-blob {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18; pointer-events: none;
+  }
+  .hero-blob-1 { width: 520px; height: 520px; background: var(--blue); top: -120px; right: -100px; }
+  .hero-blob-2 { width: 340px; height: 340px; background: var(--accent); bottom: 60px; left: -80px; }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: center; max-width: 1100px; margin: 0 auto; width: 100%;
+  }
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--blue-pale);
+    color: var(--blue);
+    font-size: 0.75rem; font-weight: 600;
+    padding: 0.3rem 0.8rem; border-radius: 20px;
+    border: 1px solid var(--border);
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  /* .hero-label::before removed for no point styling */
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 1rem;
+  }
+  h1 .hl { color: var(--blue); }
+  h1 .hl2 { color: var(--accent); }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--text2); max-width: 480px;
+    margin-bottom: 2rem; font-weight: 300; line-height: 1.7;
+  }
+  .hero-ctas { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .btn-primary {
+    background: var(--blue); color: #fff;
+    border: none; padding: 0.7rem 1.5rem;
+    border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow); }
+  .btn-outline {
+    background: transparent; color: var(--blue);
+    border: 1.5px solid var(--blue); padding: 0.7rem 1.5rem;
+    border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .btn-outline:hover { background: var(--blue-pale); transform: translateY(-2px); }
+  .hero-contacts { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .contact-chip {
+    display: flex; align-items: center; gap: 0.35rem;
+    color: var(--text3); font-size: 0.78rem;
+    background: var(--bg2); border: 1px solid var(--border);
+    padding: 0.25rem 0.7rem; border-radius: 20px;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .contact-chip:hover { color: var(--blue); border-color: var(--blue); background: var(--blue-pale); }
+  .hero-visual {
+    display: flex; flex-direction: column; gap: 1rem; align-items: flex-end;
+  }
+  .hero-photo-wrapper {
+    width: 100%; max-width: 320px; aspect-ratio: 1;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    overflow: hidden; align-self: center;
+    box-shadow: 0 12px 32px var(--shadow);
+    border: 4px solid var(--card);
+    transition: all 0.4s ease;
+    background: var(--blue-pale);
+    margin-bottom: 0.5rem;
+  }
+  .hero-photo-wrapper:hover {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    transform: scale(1.02);
+  }
+  .hero-photo-wrapper img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top;
+  }
+  .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; width: 100%; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 16px; padding: 1.2rem 1.4rem;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--accent));
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px var(--shadow); }
+  .stat-num {
+    font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 800;
+    color: var(--blue); line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--text3); margin-top: 0.25rem; font-weight: 500; }
+  .tech-strip {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.3rem; width: 100%;
+  }
+  .tech-strip-title { font-size: 0.7rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.7rem; }
+  .tech-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .pill {
+    background: var(--blue-pale); color: var(--blue);
+    font-size: 0.73rem; font-weight: 600;
+    padding: 0.2rem 0.6rem; border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .pill.accent { background: rgba(217, 119, 6, 0.1); color: var(--accent2); border-color: rgba(217, 119, 6, 0.2); }
+
+  /* SECTIONS */
+  section {
+    padding: clamp(3.5rem, 8vw, 6rem) clamp(1.2rem, 8vw, 7rem);
+  }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue); background: var(--blue-pale);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.7rem; border-radius: 20px; margin-bottom: 0.8rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 800; letter-spacing: -0.8px; margin-bottom: 0.5rem;
+  }
+  .section-desc { color: var(--text2); font-size: 1rem; margin-bottom: 2.5rem; max-width: 560px; }
+
+  /* SKILLS */
+  .skills-bg { background: var(--bg2); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .skill-group {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 16px; padding: 1.4rem;
+    box-shadow: 0 2px 12px var(--shadow);
+    transition: transform 0.2s;
+  }
+  .skill-group:hover { transform: translateY(-3px); }
+  .skill-group-title {
+    font-family: 'Playfair Display', serif; font-size: 0.78rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--blue); margin-bottom: 0.9rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-group-title svg { width: 16px; height: 16px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-tag {
+    background: var(--bg2); color: var(--text2);
+    font-size: 0.75rem; font-weight: 500;
+    padding: 0.25rem 0.65rem; border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: all 0.18s;
+  }
+  .skill-tag:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+  /* EXPERIENCE */
+  .timeline { display: flex; flex-direction: column; gap: 1.5rem; }
+  .timeline-item {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: 0 2rem; position: relative;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute;
+    left: 140px; top: 0; bottom: -1.5rem;
+    width: 1px; background: var(--border); margin-left: 1rem;
+  }
+  .timeline-item:last-child::before { display: none; }
+  .timeline-date {
+    font-size: 0.76rem; font-weight: 600; color: var(--text3);
+    padding-top: 0.2rem; text-align: right; padding-right: 1rem;
+    line-height: 1.4;
+  }
+  .timeline-body {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 1.3rem 1.5rem;
+    box-shadow: 0 2px 12px var(--shadow);
+    margin-left: 1rem; position: relative;
+  }
+  .timeline-body::before {
+    content: ''; position: absolute;
+    left: -0.5rem; top: 1.1rem;
+    width: 10px; height: 10px;
+    border-radius: 50%; background: var(--blue);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px var(--blue-pale);
+  }
+  .exp-role { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; }
+  .exp-company { color: var(--blue); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.7rem; }
+  .exp-bullets { padding-left: 1rem; }
+  .exp-bullets li { font-size: 0.85rem; color: var(--text2); margin-bottom: 0.3rem; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 18px; padding: 1.6rem;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; flex-direction: column; gap: 0.8rem;
+    position: relative; overflow: hidden;
+    text-decoration: none; color: var(--text);
+  }
+  .project-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--accent));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px var(--shadow); }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-year { font-size: 0.72rem; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.1em; }
+  .project-name { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 1.1rem; }
+  .project-desc { font-size: 0.83rem; color: var(--text2); flex: 1; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .stack-tag {
+    font-size: 0.7rem; font-weight: 600;
+    padding: 0.18rem 0.55rem; border-radius: 5px;
+    background: var(--blue-pale); color: var(--blue);
+    border: 1px solid var(--border);
+  }
+
+  /* EDUCATION & CERTS */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .edu-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 16px; padding: 1.4rem 1.6rem;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .edu-school { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+  .edu-degree { font-size: 0.84rem; color: var(--blue); font-weight: 500; margin-bottom: 0.2rem; }
+  .edu-dates { font-size: 0.75rem; color: var(--text3); font-weight: 600; }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.8rem; margin-top: 2rem; }
+  .cert-card {
+    display: flex; align-items: center; gap: 0.75rem;
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 1rem 1.2rem;
+    font-size: 0.82rem; font-weight: 500; color: var(--text2);
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: var(--blue); }
+  .cert-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--blue-pale); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cert-icon svg { width: 16px; height: 16px; color: var(--blue); }
+
+  /* VOLUNTEERING */
+  .vol-bg { background: var(--bg2); }
+  .vol-items { display: flex; flex-direction: column; gap: 0.8rem; }
+  .vol-item {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 1rem 1.4rem;
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.86rem; font-weight: 500;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  /* .vol-dot removed for no point styling */
+
+  /* FOOTER */
+  footer {
+    background: var(--bg3); border-top: 1px solid var(--border);
+    text-align: center; padding: 2.5rem 1.2rem;
+    font-size: 0.82rem; color: var(--text3);
+  }
+  footer a { color: var(--blue); text-decoration: none; }
+  footer strong { color: var(--text); font-family: 'Playfair Display', serif; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-visual { align-items: stretch; }
+    .stat-cards { grid-template-columns: 1fr 1fr; }
+    .timeline-item { grid-template-columns: 1fr; }
+    .timeline-item::before { display: none; }
+    .timeline-date { text-align: left; padding: 0; margin-bottom: 0.5rem; }
+    .timeline-body { margin-left: 0; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+
+  /* FADE IN */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">emna<span>.</span>dev</div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#skills" data-en="Skills" data-fr="Compétences">Skills</a>
+      <a href="#experience" data-en="Experience" data-fr="Expérience">Experience</a>
+      <a href="#projects" data-en="Projects" data-fr="Projets">Projects</a>
+      <a href="#education" data-en="Education" data-fr="Formation">Education</a>
+    </div>
+    <div class="nav-controls">
+      <button class="ctrl-btn" onclick="toggleLang()" id="langBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        <span id="langLabel">FR</span>
+      </button>
+      <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span id="themeLabel">Dark</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-grid section-inner">
+    <div class="hero-left fade-in">
+      <div class="hero-label" data-en="Open to Summer 2026 Internship" data-fr="Disponible pour stage été 2026">Open to Summer 2026 Internship</div>
+      <h1>
+        <span data-en="Hi, I'm" data-fr="Bonjour, je suis">Hi, I'm</span><br>
+        <span class="hl">Emna</span> <span class="hl2">Gammoudi</span>
+      </h1>
+      <p class="hero-sub" data-en="Data Science Engineering student building AI-powered systems — from NLP pipelines to full-stack platforms. I turn data into decisions." data-fr="Étudiante en ingénierie Data Science, je construis des systèmes alimentés par l'IA — des pipelines NLP aux plateformes full-stack. Je transforme les données en décisions.">Data Science Engineering student building AI-powered systems — from NLP pipelines to full-stack platforms. I turn data into decisions.</p>
+      <div class="hero-ctas">
+        <a href="mailto:gammoudiemna1@gmail.com" class="btn-primary" data-en="Get in Touch" data-fr="Me contacter">
+          Get in Touch
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="https://github.com/Emgam" target="_blank" class="btn-outline" data-en="View GitHub" data-fr="Voir GitHub">
+          View GitHub
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="hero-contacts">
+        <a href="tel:+21627421681" class="contact-chip">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +216 27 421 681
+        </a>
+        <a href="mailto:gammoudiemna1@gmail.com" class="contact-chip">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          gammoudiemna1@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/emnagammoudi" target="_blank" class="contact-chip">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/Emgam" target="_blank" class="contact-chip">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual fade-in">
+      <div class="hero-photo-wrapper">
+        <img src="assets/emna.png" alt="Emna Gammoudi" class="hero-photo">
+      </div>
+      <div class="stat-cards" id="statCards"></div>
+      <div class="tech-strip">
+        <div class="tech-strip-title" data-en="Core Stack" data-fr="Stack principal">Core Stack</div>
+        <div class="tech-pills" id="coreStack"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-bg">
+  <div class="section-inner">
+    <div class="section-tag fade-in" data-en="Technical Skills" data-fr="Compétences techniques">Technical Skills</div>
+    <h2 class="fade-in" data-en="What I Work With" data-fr="Mes outils">What I Work With</h2>
+    <p class="section-desc fade-in" data-en="A toolkit built through real-world internships and hands-on AI projects." data-fr="Une boîte à outils forgée lors de stages et projets IA concrets.">A toolkit built through real-world internships and hands-on AI projects.</p>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span data-en="Programming" data-fr="Programmation">Programming</span>
+        </div>
+        <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">R</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <span data-en="Frontend" data-fr="Frontend">Frontend</span>
+        </div>
+        <div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">TailwindCSS</span><span class="skill-tag">Material UI</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+          <span data-en="Backend" data-fr="Backend">Backend</span>
+        </div>
+        <div class="skill-tags"><span class="skill-tag">FastAPI</span><span class="skill-tag">Node.js</span><span class="skill-tag">Express.js</span><span class="skill-tag">WebSockets</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          <span data-en="Databases" data-fr="Bases de données">Databases</span>
+        </div>
+        <div class="skill-tags"><span class="skill-tag">MongoDB</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span><span class="skill-tag">Qdrant</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          <span data-en="AI & Data" data-fr="IA & Données">AI & Data</span>
+        </div>
+        <div class="skill-tags"><span class="skill-tag">ML</span><span class="skill-tag">NLP</span><span class="skill-tag">Transformers</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Pandas</span><span class="skill-tag">LLMs</span><span class="skill-tag">RAG</span><span class="skill-tag">Fine-tuning</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <span>DevOps & Tools</span>
+        </div>
+        <div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">VS Code</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-tag fade-in" data-en="Work Experience" data-fr="Expérience professionnelle">Work Experience</div>
+    <h2 class="fade-in" data-en="Where I've Worked" data-fr="Où j'ai travaillé">Where I've Worked</h2>
+    <p class="section-desc fade-in" data-en="Three internships across AI engineering, machine learning, and full-stack development." data-fr="Trois stages en ingénierie IA, machine learning et développement full-stack.">Three internships across AI engineering, machine learning, and full-stack development.</p>
+    <div class="timeline fade-in">
+      <div class="timeline-item">
+        <div class="timeline-date">Jul – Aug 2025</div>
+        <div class="timeline-body">
+          <div class="exp-role">AI Engineering Intern</div>
+          <div class="exp-company">CollabSphere IA — Tunis, Tunisia</div>
+          <ul class="exp-bullets">
+            <li data-en="Built an AI-enabled collaborative platform using FastAPI, WebSockets, React, and TailwindCSS." data-fr="Développement d'une plateforme collaborative IA avec FastAPI, WebSockets, React et TailwindCSS.">Built an AI-enabled collaborative platform using FastAPI, WebSockets, React, and TailwindCSS.</li>
+            <li data-en="Integrated NLP assistants (Transformers, spaCy) and managed data with PostgreSQL, Elasticsearch, Docker." data-fr="Intégration d'assistants NLP (Transformers, spaCy) et gestion de données avec PostgreSQL, Elasticsearch, Docker.">Integrated NLP assistants (Transformers, spaCy) and managed data with PostgreSQL, Elasticsearch, Docker.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Feb – May 2024</div>
+        <div class="timeline-body">
+          <div class="exp-role">Machine Learning Intern</div>
+          <div class="exp-company">Medianet — Tunis, Tunisia</div>
+          <ul class="exp-bullets">
+            <li data-en="Developed ML-based recommendation and segmentation models using FastAPI and MongoDB." data-fr="Développement de modèles ML de recommandation et segmentation avec FastAPI et MongoDB.">Developed ML-based recommendation and segmentation models using FastAPI and MongoDB.</li>
+            <li data-en="Created analytics dashboards with React for business insights." data-fr="Création de tableaux de bord analytiques avec React pour des insights métiers.">Created analytics dashboards with React for business insights.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Jun – Aug 2023</div>
+        <div class="timeline-body">
+          <div class="exp-role">Full-Stack Developer Intern</div>
+          <div class="exp-company">Technozor / Farmalabs — Tunis, Tunisia</div>
+          <ul class="exp-bullets">
+            <li data-en="Developed a decision-support web application with React, Express.js, MongoDB, and MySQL." data-fr="Développement d'une application web d'aide à la décision avec React, Express.js, MongoDB et MySQL.">Developed a decision-support web application with React, Express.js, MongoDB, and MySQL.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="skills-bg">
+  <div class="section-inner">
+    <div class="section-tag fade-in" data-en="Projects" data-fr="Projets">Projects</div>
+    <h2 class="fade-in" data-en="Things I've Built" data-fr="Ce que j'ai créé">Things I've Built</h2>
+    <p class="section-desc fade-in" data-en="Academic and personal projects pushing the boundaries of AI." data-fr="Projets académiques et personnels explorant les frontières de l'IA.">Academic and personal projects pushing the boundaries of AI.</p>
+    <div class="projects-grid fade-in">
+      <a href="https://github.com/Emgam" target="_blank" class="project-card">
+        <div class="project-year">2026</div>
+        <div class="project-name">AI Job Matching Platform</div>
+        <div class="project-desc" data-en="ML-based system matching CVs to job postings using text embeddings and similarity search with Qdrant." data-fr="Système ML de correspondance CV/offres d'emploi via embeddings textuels et recherche de similarité avec Qdrant.">ML-based system matching CVs to job postings using text embeddings and similarity search with Qdrant.</div>
+        <div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">FastAPI</span><span class="stack-tag">Qdrant</span><span class="stack-tag">NLP</span><span class="stack-tag">Sentence Transformers</span></div>
+      </a>
+      <a href="https://github.com/Emgam" target="_blank" class="project-card">
+        <div class="project-year">2025</div>
+        <div class="project-name">RECIPIO AI</div>
+        <div class="project-desc" data-en="AI-powered recipe generation and dietary personalization using Llama 3.3 70B with JWT-secured APIs." data-fr="Génération de recettes et personnalisation alimentaire par IA avec Llama 3.3 70B et APIs sécurisées JWT.">AI-powered recipe generation and dietary personalization using Llama 3.3 70B with JWT-secured APIs.</div>
+        <div class="project-stack"><span class="stack-tag">Django</span><span class="stack-tag">React</span><span class="stack-tag">Groq LLM</span><span class="stack-tag">Llama 3.3</span></div>
+      </a>
+      <a href="https://github.com/Emgam" target="_blank" class="project-card">
+        <div class="project-year">2025</div>
+        <div class="project-name">CrmAI</div>
+        <div class="project-desc" data-en="Microservices-based CRM with AI-driven client prioritization and explainable reasoning." data-fr="CRM en microservices avec priorisation client par IA et raisonnement explicable.">Microservices-based CRM with AI-driven client prioritization and explainable reasoning.</div>
+        <div class="project-stack"><span class="stack-tag">.NET 8</span><span class="stack-tag">FastAPI</span><span class="stack-tag">MongoDB</span></div>
+      </a>
+      <a href="https://github.com/Emgam" target="_blank" class="project-card">
+        <div class="project-year">2023</div>
+        <div class="project-name">Safe Driving — Seatbelt Detection</div>
+        <div class="project-desc" data-en="Computer vision model for seatbelt detection from images using TensorFlow." data-fr="Modèle de vision par ordinateur pour la détection de ceinture de sécurité avec TensorFlow.">Computer vision model for seatbelt detection from images using TensorFlow.</div>
+        <div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">TensorFlow</span><span class="stack-tag">Computer Vision</span></div>
+      </a>
+      <a href="https://github.com/Emgam/bakery-formulation-assistant" target="_blank" class="project-card">
+        <div class="project-year">2026</div>
+        <div class="project-name">Bakery Formulation Assistant (RAG System)</div>
+        <div class="project-desc" data-en="A Retrieval-Augmented Generation (RAG) system for bakery formulations and enzyme technical documentation. Enables semantic search over Technical Data Sheets (TDS) using NLP and vector similarity. Features include bilingual support (French & English), query expansion, smart document parsing, advanced retrieval (MMR), and a REST API with Flask and pgvector." data-fr="Système RAG pour formulations de boulangerie et documentation technique enzymes. Recherche sémantique sur fiches techniques (TDS) via NLP et similarité vectorielle. Bilingue (FR/EN), expansion de requête, parsing intelligent, récupération avancée (MMR), API REST Flask et pgvector.">
+          A Retrieval-Augmented Generation (RAG) system for bakery formulations and enzyme technical documentation. Enables semantic search over Technical Data Sheets (TDS) using NLP and vector similarity. Features include bilingual support (French & English), query expansion, smart document parsing, advanced retrieval (MMR), and a REST API with Flask and pgvector.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Flask</span>
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">pgvector</span>
+          <span class="stack-tag">Sentence Transformers</span>
+          <span class="stack-tag">NLP</span>
+          <span class="stack-tag">RAG</span>
+        </div>
+      </a>
+      <a href="https://github.com/Emgam" target="_blank" class="project-card">
+        <div class="project-year">2026</div>
+        <div class="project-name">AI Multilingual Backend (Startup & CNSS)</div>
+        <div class="project-desc" data-en="Developed multilingual (EN/FR/Darija) RAG system over 60+ legal documents for semantic QA. Implemented retrieval optimization improving response relevance and query understanding." data-fr="Développement d'un système RAG multilingue (EN/FR/Darija) sur plus de 60 documents juridiques pour une QA sémantique. Optimisation de la récupération pour une meilleure pertinence des réponses et compréhension des requêtes.">
+          Developed multilingual (EN/FR/Darija) RAG system over 60+ legal documents for semantic QA. Implemented retrieval optimization improving response relevance and query understanding.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">FAISS</span>
+          <span class="stack-tag">NLP</span>
+          <span class="stack-tag">LLMs</span>
+        </div>
+      </a>
+      <a href="https://github.com/Emgam" target="_blank" class="project-card">
+        <div class="project-year">2026</div>
+        <div class="project-name">CardioPredict — Cardiovascular Risk Prediction</div>
+        <div class="project-desc" data-en="Built end-to-end ML pipeline on 70K+ records using stacking ensemble (ROC-AUC 0.81, F1 0.73). Deployed scalable API and interactive dashboard enabling real-time risk prediction." data-fr="Pipeline de Machine Learning de bout en bout sur plus de 70k enregistrements avec modèle stacking (ROC-AUC 0.81, F1 0.73). Déploiement d'une API scalable et d'un tableau de bord interactif pour la prédiction des risques en temps réel.">
+          Built end-to-end ML pipeline on 70K+ records using stacking ensemble (ROC-AUC 0.81, F1 0.73). Deployed scalable API and interactive dashboard enabling real-time risk prediction.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">React</span>
+        </div>
+      </a>
+      <a href="https://github.com/Emgam" target="_blank" class="project-card">
+        <div class="project-year">2023</div>
+        <div class="project-name">E-commerce Clothing Platform</div>
+        <div class="project-desc" data-en="Built full-featured e-commerce clothing platform using Angular and Firebase. Implemented user authentication, admin dashboard, and real-time shopping cart with responsive UI." data-fr="Création d'une plateforme e-commerce de vêtements avec Angular et Firebase. Implémentation de l'authentification, d'un tableau de bord administrateur et d'un panier d'achat en temps réel avec interface réactive.">
+          Built full-featured e-commerce clothing platform using Angular and Firebase. Implemented user authentication, admin dashboard, and real-time shopping cart with responsive UI.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Angular</span>
+          <span class="stack-tag">Firebase</span>
+          <span class="stack-tag">TypeScript</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & CERTS -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-tag fade-in" data-en="Education" data-fr="Formation">Education</div>
+    <h2 class="fade-in" data-en="Academic Background" data-fr="Parcours académique">Academic Background</h2>
+    <div class="edu-grid fade-in">
+      <div class="edu-card">
+        <div class="edu-school">TEK-UP</div>
+        <div class="edu-degree" data-en="Engineering Cycle in ICT — Data Science" data-fr="Cycle ingénierie TIC — Data Science">Engineering Cycle in ICT — Data Science</div>
+        <div class="edu-dates">2024 – Present · Tunis, Tunisia</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school">ISTIC</div>
+        <div class="edu-degree" data-en="B.Sc. in Computer Science — Software Engineering" data-fr="Licence en Informatique — Génie Logiciel">B.Sc. in Computer Science — Software Engineering</div>
+        <div class="edu-dates">2021 – 2024 · Tunis, Tunisia</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school" data-en="Lycée Hay Amal" data-fr="Lycée Hay Amal">Lycée Hay Amal</div>
+        <div class="edu-degree" data-en="Baccalauréat — Experimental Sciences" data-fr="Baccalauréat — Sciences Expérimentales">Baccalauréat — Experimental Sciences</div>
+        <div class="edu-dates">2021</div>
+      </div>
+    </div>
+    <div class="section-tag fade-in" style="margin-top:2.5rem" data-en="Certifications" data-fr="Certifications">Certifications</div>
+    <div class="certs-grid fade-in" id="certGrid"></div>
+  </div>
+</section>
+
+<!-- VOLUNTEERING -->
+<section class="vol-bg">
+  <div class="section-inner">
+    <div class="section-tag fade-in" data-en="Volunteering" data-fr="Bénévolat">Volunteering</div>
+    <h2 class="fade-in" data-en="Community & Leadership" data-fr="Communauté & Leadership">Community & Leadership</h2>
+    <div class="vol-items fade-in" style="margin-top:1.5rem">
+      <div class="vol-item"><span data-en="Secretary, CS Chapter — IEEE Tekup Student Branch" data-fr="Secrétaire, CS Chapter — IEEE Tekup Student Branch">Secretary, CS Chapter — IEEE Tekup Student Branch</span></div>
+      <div class="vol-item"><span data-en="Member, Citizen Initiative Ben Arous" data-fr="Membre, Initiative Citoyenne Ben Arous">Member, Citizen Initiative Ben Arous</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Emna Gammoudi</strong><br>
+  <span data-en="Data Science Engineering Student · Tunis, Tunisia" data-fr="Étudiante Ingénieure Data Science · Tunis, Tunisie">Data Science Engineering Student · Tunis, Tunisia</span><br><br>
+  <a href="mailto:gammoudiemna1@gmail.com">gammoudiemna1@gmail.com</a> ·
+  <a href="https://linkedin.com/in/emnagammoudi" target="_blank">LinkedIn</a> ·
+  <a href="https://github.com/Emgam" target="_blank">GitHub</a>
+</footer>
+
+<script>
+  // Theme toggle
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeLabel').textContent = isDark ? (currentLang === 'fr' ? 'Sombre' : 'Dark') : (currentLang === 'fr' ? 'Clair' : 'Light');
+    document.getElementById('themeIcon').innerHTML = isDark
+      ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+      : '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  }
+
+  // Language toggle
+  let currentLang = 'en';
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'fr' : 'en';
+    document.documentElement.setAttribute('data-lang', currentLang);
+    document.getElementById('langLabel').textContent = currentLang === 'en' ? 'FR' : 'EN';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = currentLang === 'fr' ? el.getAttribute('data-fr') : el.getAttribute('data-en');
+    });
+    // Also update theme label
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.getElementById('themeLabel').textContent = isDark
+      ? (currentLang === 'fr' ? 'Clair' : 'Light')
+      : (currentLang === 'fr' ? 'Sombre' : 'Dark');
+  }
+
+  // Dynamic Hero Stats & Core Stack
+  const stats = [
+    { num: '3+', label: { en: 'Internships', fr: 'Stages' } },
+    { num: '8', label: { en: 'AI Projects', fr: 'Projets IA' } },
+    { num: '6', label: { en: 'Certifications', fr: 'Certifications' } },
+    { num: 'C1', label: { en: 'English Level', fr: 'Niveau anglais' } },
+  ];
+  const stack = [
+    { name: 'Python' },
+    { name: 'FastAPI' },
+    { name: 'React' },
+    { name: 'TensorFlow' },
+    { name: 'LLMs', accent: true },
+    { name: 'RAG', accent: true },
+    { name: 'NLP', accent: true },
+    { name: 'Docker' },
+  ];
+  const certs = [
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', name: 'Microsoft Power BI Data Analyst (PL-300)' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>', name: 'PCAP — Associate in Python Programming' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>', name: 'Deep Learning Fundamentals — NVIDIA' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>', name: 'EF SET English — C1 Advanced' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>', name: 'AWS AI Practitioner' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 2v4"/><path d="M16 2v4"/><path d="M2 10h20"/></svg>', name: 'Microsoft Certified: Fabric Analytics Engineer Associate (dp-600)'  },
+  ];
+  function renderStats() {
+    const statCards = document.getElementById('statCards');
+    statCards.innerHTML = '';
+    stats.forEach(stat => {
+      const div = document.createElement('div');
+      div.className = 'stat-card';
+      div.innerHTML = `<div class="stat-num">${stat.num}</div><div class="stat-label" data-en="${stat.label.en}" data-fr="${stat.label.fr}">${stat.label.en}</div>`;
+      statCards.appendChild(div);
+    });
+  }
+  function renderStack() {
+    const coreStack = document.getElementById('coreStack');
+    coreStack.innerHTML = '';
+    stack.forEach(s => {
+      const span = document.createElement('span');
+      span.className = 'pill' + (s.accent ? ' accent' : '');
+      span.textContent = s.name;
+      coreStack.appendChild(span);
+    });
+  }
+  function renderCerts() {
+    const certGrid = document.getElementById('certGrid');
+    certGrid.innerHTML = '';
+    certs.forEach(cert => {
+      const div = document.createElement('div');
+      div.className = 'cert-card';
+      div.innerHTML = `<div class="cert-icon">${cert.icon}</div>${cert.name}`;
+      certGrid.appendChild(div);
+    });
+  }
+  renderStats();
+  renderStack();
+  renderCerts();
+  // Fade in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
